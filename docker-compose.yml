@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:10.0.2
+    container_name: keycloak
+    ports:
+      - 8084:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      DB_VENDOR: h2
+  camunda-postgres:
+    image: postgres:latest
+    container_name: camunda-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=camunda
+      - POSTGRES_DB=camunda
+      - POSTGRES_USER=camunda
+      - POSTGRES_DB=process-engine
+  camunda:
+    image: camunda/camunda-bpm-platform
+    container_name: camunda_bpm
+    ports:
+      - "8081:8080"
+    environment:
+      - DB_DRIVER=org.postgresql.Driver
+      - DB_URL=jdbc:postgresql://camunda-postgres:5432/process-engine
+      - DB_USERNAME=camunda
+      - DB_PASSWORD=camunda
+      - WAIT_FOR=camunda-postgres:5432
+      - WAIT_FOR_TIMEOUT=60
+    depends_on:
+      - "camunda-postgres"
