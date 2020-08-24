@@ -1,11 +1,18 @@
 import React from 'react';
-import { Container, Content } from './styles';
+import { NavLink } from 'react-router-dom';
+import { Container, Content, Navigation } from './styles';
 
 export const Header: React.FC = () => {
   return (
     <Container>
       <Content>
-        <h1>POC-CAMUNDA</h1>
+        <nav>
+          <Navigation>
+            <NavLink to="/">HOME</NavLink>
+            <NavLink to="/deployments">DEPLOYMENTS</NavLink>
+            <NavLink to="/tasks">TASKS</NavLink>
+          </Navigation>
+        </nav>
       </Content>
     </Container>
   );

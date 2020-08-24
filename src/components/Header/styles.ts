@@ -4,6 +4,7 @@ export const Container = styled.div`
   height: 70px;
   width: 100%;
   background: #2c3e50;
+  margin-bottom: 35px;
 `;
 
 export const Content = styled.nav`
@@ -12,7 +13,27 @@ export const Content = styled.nav`
   margin: 0 auto;
   display: flex;
   align-items: center;
-  h1 {
-    color: #ffff;
+  nav {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+export const Navigation = styled.div`
+  /* padding-left: 30px; */
+  height: 32px;
+  /* border-left: 2px solid #999; */
+  display: flex;
+  align-items: center;
+  a {
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #999;
+    transition: color 0.2s;
+    &:hover {
+      color: #ffff;
+    }
   }
 `;
