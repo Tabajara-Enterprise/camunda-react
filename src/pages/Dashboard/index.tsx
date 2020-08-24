@@ -1,14 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import { parseISO, formatDistance } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import { FiSettings } from 'react-icons/fi';
 import api from '../../services/api';
 import { IDeployment } from '../../interfaces/IDeployment';
+
 import { Container, DeploymentList } from './styles';
 
 export const Dashboard: React.FC = () => {
   const [deployments, setDeployments] = useState<IDeployment[]>();
 
   useEffect(() => {
-    api.get<IDeployment[]>('deployment').then(res => setDeployments(res.data));
+    async function loadDeployments() {
+      const response = await api.get<IDeployment[]>('deployment');
+      const data = response.data.map(deployment => ({
+        ...deployment,
+        deploymentTime: formatDistance(
+          parseISO(deployment.deploymentTime),
+          new Date(),
+          {
+            addSuffix: true,
+            locale: pt,
+          },
+        ),
+      }));
+      setDeployments(data);
+    }
+    loadDeployments();
   }, []);
   return (
     <Container>
@@ -19,7 +37,7 @@ export const Dashboard: React.FC = () => {
             <FiSettings size={35} />
             <div>
               <h3>{deployment.name || 'Processo sem nome'}</h3>
-              <span>hà 2 dias atras</span>
+              <small>{deployment.deploymentTime}</small>
             </div>
           </li>
         ))}
