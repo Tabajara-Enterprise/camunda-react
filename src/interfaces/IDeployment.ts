@@ -1,6 +1,6 @@
 export interface IDeployment {
   id: string;
-  deploymentTime: Date;
+  deploymentTime: string;
   link: string[];
   name: string;
   source: string;
