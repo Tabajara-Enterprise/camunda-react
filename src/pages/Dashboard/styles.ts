@@ -19,10 +19,15 @@ export const DeploymentList = styled.ul`
     margin-right: 20px;
     transition: all 1s;
   }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
   li {
     background: #fff;
     padding: 20px;
     border-radius: 5px;
+    min-height: 100px;
     display: flex;
     align-items: center;
     cursor: pointer;

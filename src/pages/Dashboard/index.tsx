@@ -1,30 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { parseISO, formatDistance } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+
 import { FiSettings } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
-import { IDeployment } from '../../interfaces/IDeployment';
+import { IProcessDefinition } from '../../interfaces/IProcessDefinition';
 
 import { Container, DeploymentList } from './styles';
 
 export const Dashboard: React.FC = () => {
-  const [deployments, setDeployments] = useState<IDeployment[]>();
+  const [processes, setProcesses] = useState<IProcessDefinition[]>();
 
   useEffect(() => {
     async function loadDeployments() {
-      const response = await api.get<IDeployment[]>('deployment');
-      const data = response.data.map(deployment => ({
-        ...deployment,
-        deploymentTime: formatDistance(
-          parseISO(deployment.deploymentTime),
-          new Date(),
-          {
-            addSuffix: true,
-            locale: pt,
-          },
-        ),
-      }));
-      setDeployments(data);
+      const response = await api.get<IProcessDefinition[]>(
+        'process-definition?latest=true&active=true',
+      );
+      setProcesses(response.data);
     }
     loadDeployments();
   }, []);
@@ -32,14 +23,16 @@ export const Dashboard: React.FC = () => {
     <Container>
       <h1>Processos disponíveis</h1>
       <DeploymentList>
-        {deployments?.map(deployment => (
-          <li key={deployment.id}>
-            <FiSettings size={35} />
-            <div>
-              <h3>{deployment.name || 'Processo sem nome'}</h3>
-              <small>{deployment.deploymentTime}</small>
-            </div>
-          </li>
+        {processes?.map(process => (
+          <Link key={process.id} to={`/start-process/key/${process.key}`}>
+            <li>
+              <FiSettings size={35} />
+              <div>
+                <h3>{process.name}</h3>
+                <small>{process.versionTag}</small>
+              </div>
+            </li>
+          </Link>
         ))}
       </DeploymentList>
     </Container>
