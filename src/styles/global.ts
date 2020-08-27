@@ -13,6 +13,7 @@ export default createGlobalStyle`
   }
   body, input, button {
     font: 16px "Poppins", sans-serif;
+    color: #353535;
   }
   button {
     cursor: pointer;
