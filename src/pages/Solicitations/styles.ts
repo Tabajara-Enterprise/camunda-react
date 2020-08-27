@@ -80,13 +80,15 @@ export const SolicitationsList = styled.ul`
         font-size: 18px;
       }
     }
-    button {
+    a {
       border: none;
       background: none;
-      height: 50px;
+      height: 40px;
       text-transform: uppercase;
       font-weight: bold;
       transition: box-shadow, color 0.2s;
+      text-decoration: none;
+      color: inherit;
       &:hover {
         color: #ff872c;
       }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FiStar } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import { Header } from '../../components/Header';
 
 import {
@@ -40,7 +41,7 @@ export const Solicitations: React.FC = () => {
                 <span>ID12345678</span>
                 <h3>Reserva de sala</h3>
               </div>
-              <button type="button">Iniciar</button>
+              <Link to="/solicitations/start">Iniciar</Link>
             </li>
             <li>
               <div>
@@ -51,7 +52,7 @@ export const Solicitations: React.FC = () => {
                 <span>ID12345678</span>
                 <h3>Curso EAD</h3>
               </div>
-              <button type="button">Iniciar</button>
+              <Link to="/solicitations/start">Iniciar</Link>
             </li>
             <li>
               <div>
@@ -62,7 +63,7 @@ export const Solicitations: React.FC = () => {
                 <span>ID12345678</span>
                 <h3>Curso Presencial</h3>
               </div>
-              <button type="button">Iniciar</button>
+              <Link to="/solicitations/start">Iniciar</Link>
             </li>
           </SolicitationsList>
         )}
