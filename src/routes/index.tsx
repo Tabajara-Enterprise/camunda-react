@@ -6,6 +6,7 @@ import { Dashboard } from '../pages/Dashboard';
 import { StartProcess } from '../pages/StartProcess';
 import { Login } from '../pages/Login';
 import { Users } from '../pages/Users';
+import { UserNew } from '../pages/UserNew';
 
 export const Routes: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ export const Routes: React.FC = () => {
         component={StartProcess}
         isPrivate
       />
+      <Route path="/users/new" component={UserNew} isPrivate />
       <Route path="/users" component={Users} isPrivate />
       <Route path="/dashboard" component={Dashboard} isPrivate />
       <Route path="/" exact component={Login} />
