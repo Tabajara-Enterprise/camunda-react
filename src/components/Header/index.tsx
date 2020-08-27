@@ -10,7 +10,7 @@ export const Header: React.FC = () => {
           <Navigation>
             <NavLink to="/">HOME</NavLink>
             <NavLink to="/users">USUÁRIOS</NavLink>
-            <NavLink to="/processes">SOLICITAÇÕES</NavLink>
+            <NavLink to="/solicitations">SOLICITAÇÕES</NavLink>
             <NavLink to="/tasks">TAREFAS</NavLink>
           </Navigation>
         </nav>
