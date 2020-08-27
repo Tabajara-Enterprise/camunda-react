@@ -8,6 +8,7 @@ import { Login } from '../pages/Login';
 import { Users } from '../pages/Users';
 import { UserNew } from '../pages/UserNew';
 import { Solicitations } from '../pages/Solicitations';
+import { StartSolicitation } from '../pages/StartSolicitation';
 
 export const Routes: React.FC = () => {
   return (
@@ -15,6 +16,11 @@ export const Routes: React.FC = () => {
       <Route
         path="/start-process/key/:key"
         component={StartProcess}
+        isPrivate
+      />
+      <Route
+        path="/solicitations/start"
+        component={StartSolicitation}
         isPrivate
       />
       <Route path="/solicitations" component={Solicitations} isPrivate />
