@@ -9,8 +9,9 @@ export const Header: React.FC = () => {
         <nav>
           <Navigation>
             <NavLink to="/">HOME</NavLink>
-            <NavLink to="/deployments">DEPLOYMENTS</NavLink>
-            <NavLink to="/tasks">TASKS</NavLink>
+            <NavLink to="/users">USUÁRIOS</NavLink>
+            <NavLink to="/processes">SOLICITAÇÕES</NavLink>
+            <NavLink to="/tasks">TAREFAS</NavLink>
           </Navigation>
         </nav>
       </Content>
