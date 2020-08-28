@@ -34,99 +34,101 @@ export const Users: React.FC = () => {
                 <th>Ações</th>
               </tr>
             </thead>
-            <UserItem>
-              <td />
-              <td>Raphael</td>
-              <td>raphaelstn@gmail.com</td>
-              <td>Ativo</td>
-              <td>
-                <Dropdown icon={FiMenu}>
-                  <MenuActionItem>
-                    <Link to="!">
-                      <FiEye />
-                      <span>Detalhes</span>
-                    </Link>
-                  </MenuActionItem>
-                  <MenuActionItem>
-                    <Link to="!">
-                      <FiEdit />
-                      <span>Editar</span>
-                    </Link>
-                  </MenuActionItem>
-                  <MenuActionItem>
-                    <button
-                      type="button"
-                      onClick={() => console.log('lkajsdf')}
-                    >
-                      <FiTrash />
-                      <span>Remover</span>
-                    </button>
-                  </MenuActionItem>
-                </Dropdown>
-              </td>
-            </UserItem>
-            <UserItem>
-              <td />
-              <td>Fernando</td>
-              <td>fernando_tomate@gmail.com</td>
-              <td>Ativo</td>
-              <td>
-                <Dropdown icon={FiMenu}>
-                  <MenuActionItem>
-                    <Link to="!">
-                      <FiEye />
-                      <span>Detalhes</span>
-                    </Link>
-                  </MenuActionItem>
-                  <MenuActionItem>
-                    <Link to="!">
-                      <FiEdit />
-                      <span>Editar</span>
-                    </Link>
-                  </MenuActionItem>
-                  <MenuActionItem>
-                    <button
-                      type="button"
-                      onClick={() => console.log('lkajsdf')}
-                    >
-                      <FiTrash />
-                      <span>Remover</span>
-                    </button>
-                  </MenuActionItem>
-                </Dropdown>
-              </td>
-            </UserItem>
-            <UserItem>
-              <td />
-              <td>Cleiton</td>
-              <td>dev.cleiton@gmail.com</td>
-              <td>Desativado</td>
-              <td>
-                <Dropdown icon={FiMenu}>
-                  <MenuActionItem>
-                    <Link to="!">
-                      <FiEye />
-                      <span>Detalhes</span>
-                    </Link>
-                  </MenuActionItem>
-                  <MenuActionItem>
-                    <Link to="!">
-                      <FiEdit />
-                      <span>Editar</span>
-                    </Link>
-                  </MenuActionItem>
-                  <MenuActionItem>
-                    <button
-                      type="button"
-                      onClick={() => console.log('lkajsdf')}
-                    >
-                      <FiTrash />
-                      <span>Remover</span>
-                    </button>
-                  </MenuActionItem>
-                </Dropdown>
-              </td>
-            </UserItem>
+            <tbody>
+              <UserItem>
+                <td />
+                <td>Raphael</td>
+                <td>raphaelstn@gmail.com</td>
+                <td>Ativo</td>
+                <td>
+                  <Dropdown icon={FiMenu}>
+                    <MenuActionItem>
+                      <Link to="!">
+                        <FiEye />
+                        <span>Detalhes</span>
+                      </Link>
+                    </MenuActionItem>
+                    <MenuActionItem>
+                      <Link to="!">
+                        <FiEdit />
+                        <span>Editar</span>
+                      </Link>
+                    </MenuActionItem>
+                    <MenuActionItem>
+                      <button
+                        type="button"
+                        onClick={() => console.log('lkajsdf')}
+                      >
+                        <FiTrash />
+                        <span>Remover</span>
+                      </button>
+                    </MenuActionItem>
+                  </Dropdown>
+                </td>
+              </UserItem>
+              <UserItem>
+                <td />
+                <td>Fernando</td>
+                <td>fernando_tomate@gmail.com</td>
+                <td>Ativo</td>
+                <td>
+                  <Dropdown icon={FiMenu}>
+                    <MenuActionItem>
+                      <Link to="!">
+                        <FiEye />
+                        <span>Detalhes</span>
+                      </Link>
+                    </MenuActionItem>
+                    <MenuActionItem>
+                      <Link to="!">
+                        <FiEdit />
+                        <span>Editar</span>
+                      </Link>
+                    </MenuActionItem>
+                    <MenuActionItem>
+                      <button
+                        type="button"
+                        onClick={() => console.log('lkajsdf')}
+                      >
+                        <FiTrash />
+                        <span>Remover</span>
+                      </button>
+                    </MenuActionItem>
+                  </Dropdown>
+                </td>
+              </UserItem>
+              <UserItem>
+                <td />
+                <td>Cleiton</td>
+                <td>dev.cleiton@gmail.com</td>
+                <td>Desativado</td>
+                <td>
+                  <Dropdown icon={FiMenu}>
+                    <MenuActionItem>
+                      <Link to="!">
+                        <FiEye />
+                        <span>Detalhes</span>
+                      </Link>
+                    </MenuActionItem>
+                    <MenuActionItem>
+                      <Link to="!">
+                        <FiEdit />
+                        <span>Editar</span>
+                      </Link>
+                    </MenuActionItem>
+                    <MenuActionItem>
+                      <button
+                        type="button"
+                        onClick={() => console.log('lkajsdf')}
+                      >
+                        <FiTrash />
+                        <span>Remover</span>
+                      </button>
+                    </MenuActionItem>
+                  </Dropdown>
+                </td>
+              </UserItem>
+            </tbody>
           </UserList>
         </Content>
       </Container>
