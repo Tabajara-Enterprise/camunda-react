@@ -52,18 +52,19 @@ export const SolicitationsList = styled.ul`
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     > div {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       width: 100%;
-      padding: 20px 10px 0 10px;
+      margin-top: 20px;
       svg {
+        margin: 0 auto 0 10px;
         margin-right: auto;
       }
+
       small {
+        margin: 0 10px;
         font-size: 10px;
         color: #808080;
       }
@@ -89,6 +90,7 @@ export const SolicitationsList = styled.ul`
       transition: box-shadow, color 0.2s;
       text-decoration: none;
       color: inherit;
+      margin-top: auto;
       &:hover {
         color: #ff872c;
       }
