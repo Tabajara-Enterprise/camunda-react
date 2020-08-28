@@ -3,21 +3,17 @@ import { Switch } from 'react-router-dom';
 import { Route } from './Route';
 
 import { Dashboard } from '../pages/Dashboard';
-import { StartProcess } from '../pages/StartProcess';
 import { Login } from '../pages/Login';
 import { Users } from '../pages/Users';
 import { UserNew } from '../pages/UserNew';
 import { Solicitations } from '../pages/Solicitations';
 import { StartSolicitation } from '../pages/StartSolicitation';
+import { Tasks } from '../pages/Tasks';
 
 export const Routes: React.FC = () => {
   return (
     <Switch>
-      <Route
-        path="/start-process/key/:key"
-        component={StartProcess}
-        isPrivate
-      />
+      <Route path="/tasks" component={Tasks} isPrivate />
       <Route
         path="/solicitations/start"
         component={StartSolicitation}
