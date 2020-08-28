@@ -1,29 +1,35 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
-import { Route } from './Route';
+import { useKeycloak } from '@react-keycloak/web';
+
+import { Route, Switch } from 'react-router-dom';
 
 import { Dashboard } from '../pages/Dashboard';
-import { Login } from '../pages/Login';
 import { Users } from '../pages/Users';
 import { UserNew } from '../pages/UserNew';
 import { Solicitations } from '../pages/Solicitations';
 import { StartSolicitation } from '../pages/StartSolicitation';
 import { Tasks } from '../pages/Tasks';
+import { DeployProcess } from '../components/Camunda/DeployProcess';
+import PrivateRoute from './PrivateRoute';
 
 export const Routes: React.FC = () => {
+  const [, initialized] = useKeycloak();
+  if (!initialized) {
+    return <h1>Aguarde...</h1>;
+  }
   return (
     <Switch>
-      <Route path="/tasks" component={Tasks} isPrivate />
-      <Route
-        path="/solicitations/start"
-        component={StartSolicitation}
-        isPrivate
+      <PrivateRoute
+        path="/process/deployment"
+        roles={['admin']}
+        component={DeployProcess}
       />
-      <Route path="/solicitations" component={Solicitations} isPrivate />
-      <Route path="/users/new" component={UserNew} isPrivate />
-      <Route path="/users" component={Users} isPrivate />
-      <Route path="/dashboard" component={Dashboard} isPrivate />
-      <Route path="/" exact component={Login} />
+      <Route path="/tasks" component={Tasks} />
+      <Route path="/solicitaions/start" component={StartSolicitation} />
+      <Route path="/solicitations" component={Solicitations} />
+      <Route path="/users/new" component={UserNew} />
+      <Route path="/users" component={Users} />
+      <Route exact path="/" component={Dashboard} />
     </Switch>
   );
 };
