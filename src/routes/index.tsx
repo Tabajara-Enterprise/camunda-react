@@ -11,6 +11,7 @@ import { StartSolicitation } from '../pages/StartSolicitation';
 import { Tasks } from '../pages/Tasks';
 import { DeployProcess } from '../components/Camunda/DeployProcess';
 import PrivateRoute from './PrivateRoute';
+import { UserDetail } from '../pages/UserDetail';
 
 export const Routes: React.FC = () => {
   const [, initialized] = useKeycloak();
@@ -28,6 +29,7 @@ export const Routes: React.FC = () => {
       <Route path="/solicitaions/start" component={StartSolicitation} />
       <Route path="/solicitations" component={Solicitations} />
       <Route path="/users/new" component={UserNew} />
+      <Route path="/users/:id" component={UserDetail} />
       <Route path="/users" component={Users} />
       <Route exact path="/" component={Dashboard} />
     </Switch>
