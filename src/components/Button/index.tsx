@@ -1,14 +1,31 @@
 import React, { ButtonHTMLAttributes } from 'react';
-import { Button as ButtonStyle } from './styles';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  label: string;
-}
+import { FiRotateCw } from 'react-icons/fi';
+import { Container, Loading } from './styles';
 
-export const Button: React.FC<ButtonProps> = ({ label, ...rest }) => {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  loading?: boolean;
+};
+
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  loading,
+  ...rest
+}) => {
   return (
-    <ButtonStyle type="button" {...rest}>
-      {label}
-    </ButtonStyle>
+    <Container
+      disabled={loading}
+      isLoading={Number(loading)}
+      type="button"
+      {...rest}
+    >
+      {loading ? (
+        <Loading>
+          <FiRotateCw />
+        </Loading>
+      ) : (
+        children
+      )}
+    </Container>
   );
 };
