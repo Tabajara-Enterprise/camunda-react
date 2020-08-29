@@ -1,31 +1,90 @@
-import React, { SelectHTMLAttributes } from 'react';
-import { Container } from './styles';
+import React, { useRef, useEffect } from 'react';
+import ReactSelect, {
+  OptionTypeBase,
+  Props as SelectProps,
+  StylesConfig,
+  Theme,
+} from 'react-select';
+import { useField } from '@unform/core';
 
-export interface SelectItemsProps {
-  value: string;
+interface Props extends SelectProps<OptionTypeBase> {
+  name: string;
   label: string;
 }
 
-interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  options: SelectItemsProps[];
-  label: string;
-}
+export const Select: React.FC<Props> = ({ name, label, ...rest }) => {
+  const selectRef = useRef(null);
+  const { fieldName, defaultValue, registerField } = useField(name);
 
-export const Select: React.FC<SelectProps> = ({
-  options,
-  name,
-  label,
-  ...rest
-}) => {
+  const colourStyles: StylesConfig = {
+    control: styles => ({
+      ...styles,
+      borderRadius: 5,
+      borderColor: '#d3d3d3',
+      fontSize: 16,
+      height: 47,
+    }),
+    option: styels => ({
+      ...styels,
+      color: '#353535',
+    }),
+  };
+
+  const themeProps = (theme: Theme): Theme => {
+    return {
+      ...theme,
+      colors: {
+        ...theme.colors,
+        primary: '#3498db',
+        neutral0: '#fff',
+        primary25: '#3498db',
+        primary50: '#999591',
+        neutral80: '#353535',
+        neutral30: '#3498db',
+      },
+    };
+  };
+
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      ref: selectRef.current,
+      getValue: ref => {
+        if (rest.isMulti) {
+          if (!ref.state.value) {
+            return [];
+          }
+          return ref.state.value.map((option: OptionTypeBase) => option.value);
+        }
+        if (!ref.state.value) {
+          return '';
+        }
+        return ref.state.value.value;
+      },
+      setValue: (ref: any, value: any) => {
+        ref.state.value = value;
+      },
+      clearValue: (ref: any) => {
+        ref.state.value = null;
+      },
+    });
+  }, [fieldName, registerField, rest.isMulti]);
+
   return (
-    <Container>
-      <label htmlFor={name}>{label}</label>
-      <select id={name} {...rest}>
-        <option value="null">.: Selecione :.</option>
-        {options.map(option => (
-          <option value={option.value}>{option.label}</option>
-        ))}
-      </select>
-    </Container>
+    <>
+      <label style={{ fontWeight: 'bold' }} htmlFor={name}>
+        {label}
+      </label>
+      <ReactSelect
+        defaultValue={defaultValue}
+        ref={selectRef}
+        classNamePrefix="react-select"
+        styles={colourStyles}
+        theme={themeProps}
+        maxMenuHeight={250}
+        placeholder="Selecione..."
+        {...rest}
+      />
+    </>
   );
 };
