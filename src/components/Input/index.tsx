@@ -22,6 +22,7 @@ export const Input: React.FC<InputProps> = ({
   label,
   containerStyle = {},
   icon: Icon,
+  disabled,
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -54,6 +55,7 @@ export const Input: React.FC<InputProps> = ({
         isErrored={!!error}
         isField={isField}
         isFocused={isFocused}
+        disabled={disabled}
         data-testid="input-container"
       >
         {Icon && <Icon size={20} />}
@@ -62,6 +64,7 @@ export const Input: React.FC<InputProps> = ({
           onBlur={handleInputBlur}
           defaultValue={defaultValue}
           ref={inputRef}
+          disabled={disabled}
           {...rest}
         />
 
