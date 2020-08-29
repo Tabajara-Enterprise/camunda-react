@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FiStar } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { Header } from '../../components/Header';
 
 import {
   Container,
@@ -16,7 +15,6 @@ export const Solicitations: React.FC = () => {
   const [tabActive, setTabActive] = useState<number>(1);
   return (
     <>
-      <Header />
       <Container>
         <h1>Solicitações</h1>
         <TabGroup>

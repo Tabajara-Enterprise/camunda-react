@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { FiEye, FiLink, FiMenu } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { Header } from '../../components/Header';
 import {
   Container,
   Content,
@@ -18,7 +17,6 @@ export const Tasks: React.FC = () => {
   const [tabActive, setTabActive] = useState<number>(1);
   return (
     <>
-      <Header />
       <Container>
         <h1>Lista de tarefas</h1>
         <Content>

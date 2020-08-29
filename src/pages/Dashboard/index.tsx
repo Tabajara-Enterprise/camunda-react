@@ -1,12 +1,10 @@
 import React from 'react';
 
 import { Container, Card, CardList } from './styles';
-import { Header } from '../../components/Header';
 
 export const Dashboard: React.FC = () => {
   return (
     <>
-      <Header />
       <Container>
         <h1>Dashboard</h1>
         <CardList>

@@ -10,7 +10,6 @@ import {
   UserItem,
   MenuActionItem,
 } from './styles';
-import { Header } from '../../components/Header';
 import Dropdown from '../../components/Dropdown';
 import api from '../../services/api';
 
@@ -29,7 +28,6 @@ export const Users: React.FC = () => {
   }, []);
   return (
     <>
-      <Header />
       <Container>
         <HeaderContent>
           <h1>Usuários</h1>
@@ -57,7 +55,7 @@ export const Users: React.FC = () => {
                   <td>
                     <Dropdown icon={FiMenu}>
                       <MenuActionItem>
-                        <Link to="!">
+                        <Link to={`/users/${user.id}`}>
                           <FiEye />
                           <span>Detalhes</span>
                         </Link>

@@ -1,13 +1,11 @@
 import React from 'react';
-import { Header } from '../../components/Header';
 import { Container, Content } from './styles';
 import { Input } from '../../components/Input';
-import { Button } from '../../components/Button/styles';
+// import { Button } from '../../components/Button/styles';
 
 export const StartSolicitation: React.FC = () => {
   return (
     <>
-      <Header />
       <Container>
         <h1>Iniciar Processo X</h1>
         <Content>
@@ -22,7 +20,7 @@ export const StartSolicitation: React.FC = () => {
               label="Variavel 2"
               placeholder="Informe a variavel 2"
             />
-            <Button>Iniciar processo</Button>
+            {/* <Button>Iniciar processo</Button> */}
           </form>
         </Content>
       </Container>

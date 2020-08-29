@@ -7,7 +7,6 @@ import { Form } from '@unform/web';
 
 import api from '../../services/api';
 
-import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { Select } from '../../components/Select';
 import { Button } from '../../components/Button';
@@ -79,7 +78,6 @@ export const UserNew: React.FC = () => {
 
   return (
     <>
-      <Header />
       <Container>
         <h1>Novo usuário</h1>
         <Content>
