@@ -85,7 +85,7 @@ export const UserEdit: React.FC = () => {
         setIsLoading(false);
       }
     },
-    [history],
+    [history, id],
   );
 
   return (
