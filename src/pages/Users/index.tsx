@@ -71,13 +71,13 @@ export const Users: React.FC = () => {
                   <td>
                     <Dropdown icon={FiMenu}>
                       <MenuActionItem>
-                        <Link to={`/users/${user.id}`}>
+                        <Link to={`/users/${user.id}/detail`}>
                           <FiEye />
                           <span>Detalhes</span>
                         </Link>
                       </MenuActionItem>
                       <MenuActionItem>
-                        <Link to="!">
+                        <Link to={`/users/${user.id}/edit`}>
                           <FiEdit />
                           <span>Editar</span>
                         </Link>
