@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import { FiMenu, FiEdit, FiTrash, FiEye } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,8 @@ import {
 } from './styles';
 import Dropdown from '../../components/Dropdown';
 import api from '../../services/api';
+import { useModal } from '../../hooks/modal';
+import { UserDelete } from '../../components/UserDelete';
 
 interface User {
   id: string;
@@ -22,10 +24,24 @@ interface User {
 
 export const Users: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const { openModal } = useModal();
 
   useEffect(() => {
     api.get('/v1/users').then(response => setUsers(response.data));
   }, []);
+
+  const handleRemoveUserList = useCallback((id: string) => {
+    setUsers(state => state.filter(user => user.id !== id));
+  }, []);
+  const handleRemoveItem = useCallback(
+    (user: User) => {
+      openModal({
+        title: 'Remover usuário',
+        container: () => UserDelete({ user, handleRemoveUserList }),
+      });
+    },
+    [openModal, handleRemoveUserList],
+  );
   return (
     <>
       <Container>
@@ -69,7 +85,7 @@ export const Users: React.FC = () => {
                       <MenuActionItem>
                         <button
                           type="button"
-                          onClick={() => console.log('lkajsdf')}
+                          onClick={() => handleRemoveItem(user)}
                         >
                           <FiTrash />
                           <span>Remover</span>
