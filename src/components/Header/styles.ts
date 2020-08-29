@@ -37,3 +37,20 @@ export const Navigation = styled.div`
     }
   }
 `;
+
+export const LogoutContainer = styled.div`
+  margin-left: auto;
+  button {
+    background: transparent;
+    border: 1px solid #999;
+    padding: 5px 20px;
+    color: #999;
+    border-radius: 5px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    &:hover {
+      background: #ffff;
+      color: #353535;
+    }
+  }
+`;
