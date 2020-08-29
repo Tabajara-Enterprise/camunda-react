@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { FiMenu, FiEdit, FiTrash, FiEye } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
@@ -12,8 +12,21 @@ import {
 } from './styles';
 import { Header } from '../../components/Header';
 import Dropdown from '../../components/Dropdown';
+import api from '../../services/api';
+
+interface User {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
 
 export const Users: React.FC = () => {
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    api.get('/v1/users').then(response => setUsers(response.data));
+  }, []);
   return (
     <>
       <Header />
@@ -35,99 +48,39 @@ export const Users: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              <UserItem>
-                <td />
-                <td>Raphael</td>
-                <td>raphaelstn@gmail.com</td>
-                <td>Ativo</td>
-                <td>
-                  <Dropdown icon={FiMenu}>
-                    <MenuActionItem>
-                      <Link to="!">
-                        <FiEye />
-                        <span>Detalhes</span>
-                      </Link>
-                    </MenuActionItem>
-                    <MenuActionItem>
-                      <Link to="!">
-                        <FiEdit />
-                        <span>Editar</span>
-                      </Link>
-                    </MenuActionItem>
-                    <MenuActionItem>
-                      <button
-                        type="button"
-                        onClick={() => console.log('lkajsdf')}
-                      >
-                        <FiTrash />
-                        <span>Remover</span>
-                      </button>
-                    </MenuActionItem>
-                  </Dropdown>
-                </td>
-              </UserItem>
-              <UserItem>
-                <td />
-                <td>Fernando</td>
-                <td>fernando_tomate@gmail.com</td>
-                <td>Ativo</td>
-                <td>
-                  <Dropdown icon={FiMenu}>
-                    <MenuActionItem>
-                      <Link to="!">
-                        <FiEye />
-                        <span>Detalhes</span>
-                      </Link>
-                    </MenuActionItem>
-                    <MenuActionItem>
-                      <Link to="!">
-                        <FiEdit />
-                        <span>Editar</span>
-                      </Link>
-                    </MenuActionItem>
-                    <MenuActionItem>
-                      <button
-                        type="button"
-                        onClick={() => console.log('lkajsdf')}
-                      >
-                        <FiTrash />
-                        <span>Remover</span>
-                      </button>
-                    </MenuActionItem>
-                  </Dropdown>
-                </td>
-              </UserItem>
-              <UserItem>
-                <td />
-                <td>Cleiton</td>
-                <td>dev.cleiton@gmail.com</td>
-                <td>Desativado</td>
-                <td>
-                  <Dropdown icon={FiMenu}>
-                    <MenuActionItem>
-                      <Link to="!">
-                        <FiEye />
-                        <span>Detalhes</span>
-                      </Link>
-                    </MenuActionItem>
-                    <MenuActionItem>
-                      <Link to="!">
-                        <FiEdit />
-                        <span>Editar</span>
-                      </Link>
-                    </MenuActionItem>
-                    <MenuActionItem>
-                      <button
-                        type="button"
-                        onClick={() => console.log('lkajsdf')}
-                      >
-                        <FiTrash />
-                        <span>Remover</span>
-                      </button>
-                    </MenuActionItem>
-                  </Dropdown>
-                </td>
-              </UserItem>
+              {users.map(user => (
+                <UserItem key={user.id}>
+                  <td />
+                  <td>{`${user.firstName} ${user.lastName}`}</td>
+                  <td>{user.email}</td>
+                  <td>Ativo</td>
+                  <td>
+                    <Dropdown icon={FiMenu}>
+                      <MenuActionItem>
+                        <Link to="!">
+                          <FiEye />
+                          <span>Detalhes</span>
+                        </Link>
+                      </MenuActionItem>
+                      <MenuActionItem>
+                        <Link to="!">
+                          <FiEdit />
+                          <span>Editar</span>
+                        </Link>
+                      </MenuActionItem>
+                      <MenuActionItem>
+                        <button
+                          type="button"
+                          onClick={() => console.log('lkajsdf')}
+                        >
+                          <FiTrash />
+                          <span>Remover</span>
+                        </button>
+                      </MenuActionItem>
+                    </Dropdown>
+                  </td>
+                </UserItem>
+              ))}
             </tbody>
           </UserList>
         </Content>
