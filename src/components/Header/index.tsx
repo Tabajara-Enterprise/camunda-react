@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useKeycloak } from '@react-keycloak/web';
+
+import { AuthorizedElement } from '../../utils/authorization';
 import { Container, Content, Navigation, LogoutContainer } from './styles';
 
 export const Header: React.FC = () => {
@@ -14,7 +16,9 @@ export const Header: React.FC = () => {
         <nav>
           <Navigation>
             <NavLink to="/">HOME</NavLink>
-            <NavLink to="/users">USUÁRIOS</NavLink>
+            <AuthorizedElement roles={['ADMINISTRATOR']}>
+              <NavLink to="/users">USUÁRIOS</NavLink>
+            </AuthorizedElement>
             <NavLink to="/solicitations">SOLICITAÇÕES</NavLink>
             <NavLink to="/tasks">TAREFAS</NavLink>
           </Navigation>

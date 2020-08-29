@@ -29,10 +29,22 @@ export const Routes: React.FC = () => {
       <Route path="/tasks" component={Tasks} />
       <Route path="/solicitaions/start" component={StartSolicitation} />
       <Route path="/solicitations" component={Solicitations} />
-      <Route path="/users/new" component={UserNew} />
-      <Route path="/users/:id/detail" component={UserDetail} />
-      <Route path="/users/:id/edit" component={UserEdit} />
-      <Route path="/users" component={Users} />
+      <PrivateRoute
+        roles={['ADMINISTRATOR']}
+        path="/users/new"
+        component={UserNew}
+      />
+      <PrivateRoute
+        roles={['ADMINISTRATOR']}
+        path="/users/:id/detail"
+        component={UserDetail}
+      />
+      <PrivateRoute
+        roles={['ADMINISTRATOR']}
+        path="/users/:id/edit"
+        component={UserEdit}
+      />
+      <PrivateRoute roles={['ADMINISTRATOR']} path="/users" component={Users} />
       <Route exact path="/" component={Dashboard} />
     </Switch>
   );
