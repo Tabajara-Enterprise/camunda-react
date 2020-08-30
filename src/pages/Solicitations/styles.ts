@@ -4,7 +4,6 @@ export const Container = styled.div`
   max-width: 1100px;
   margin: 30px auto;
   h1 {
-    color: #353535;
     margin-bottom: 20px;
   }
 `;
@@ -19,7 +18,7 @@ export const Content = styled.div`
 export const TabGroup = styled.ul`
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(3, 250px);
+  grid-template-columns: repeat(4, 180px);
   grid-gap: 20px;
   margin-bottom: 20px;
 `;
@@ -79,6 +78,7 @@ export const SolicitationsList = styled.ul`
       }
       h3 {
         font-size: 18px;
+        text-align: center;
       }
     }
     a {
