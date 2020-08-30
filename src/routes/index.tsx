@@ -9,7 +9,6 @@ import { UserNew } from '../pages/UserNew';
 import { Solicitations } from '../pages/Solicitations';
 import { StartSolicitation } from '../pages/StartSolicitation';
 import { Tasks } from '../pages/Tasks';
-import { DeployProcess } from '../components/Camunda/DeployProcess';
 import PrivateRoute from './PrivateRoute';
 import { UserDetail } from '../pages/UserDetail';
 import { UserEdit } from '../pages/UserEdit';
@@ -21,11 +20,6 @@ export const Routes: React.FC = () => {
   }
   return (
     <Switch>
-      <PrivateRoute
-        path="/process/deployment"
-        roles={['admin']}
-        component={DeployProcess}
-      />
       <Route path="/tasks" component={Tasks} />
       <Route path="/solicitaions/start" component={StartSolicitation} />
       <Route path="/solicitations" component={Solicitations} />
