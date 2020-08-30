@@ -20,9 +20,8 @@ export const DeployProcess: React.FC = () => {
     const data = new FormData();
     const { file, name: filename } = uploadedFiles[0];
     const blob = new Blob([file], { type: 'text/xml' });
-    data.append('data', blob, filename);
-    data.append('deployment-name', filename);
-    await api.post('deployment/create', data);
+    data.append('file', blob, filename);
+    await api.post('/v1/deployments', data);
     history.push('/');
   }, [history, uploadedFiles]);
 
