@@ -1,37 +1,35 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect } from 'react';
 import BpmnJS from 'bpmn-js';
 
+import styled from 'styled-components';
+
+const Container = styled.div`
+  a {
+    display: none;
+  }
+`;
+
 interface BPMNDiagramProps {
-  instanceId: string;
+  instanceId?: string;
+  xml: any;
 }
 
-export const BPMNDiagram: React.FC<BPMNDiagramProps> = ({ instanceId }) => {
+export const BPMNDiagram: React.FC<BPMNDiagramProps> = ({ xml }) => {
   const containerRef = useRef(null);
-
   useEffect(() => {
-    // buscar diagrama por instanceID
-    console.log(instanceId);
-    // openDiagram(bpmnXML, tasks)
-  }, [instanceId]);
-
-  const openDiagram = useCallback(async (bpmnXML: any, tasks: any[]) => {
-    try {
-      const bpmnViewer = new BpmnJS();
-      await bpmnViewer.importXML(bpmnXML);
-      const canvas = bpmnViewer.get('canvas');
-      canvas.zoom('fit-viewport');
-
-      tasks.forEach(task => {
-        canvas.addMarker(task.taskDefinitionKey, 'needs-discussion');
-      });
-    } catch (err) {
-      console.log(err);
+    async function openDiagram(): Promise<void> {
+      try {
+        const bpm = new BpmnJS({ container: '#canvas' });
+        await bpm.importXML(xml);
+        const canvas = bpm.get('canvas');
+        canvas.zoom('fit-viewport');
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }, []);
 
-  return (
-    <div ref={containerRef}>
-      <p>Diagrama</p>
-    </div>
-  );
+    openDiagram();
+  }, [xml]);
+
+  return <Container ref={containerRef} id="canvas" />;
 };
