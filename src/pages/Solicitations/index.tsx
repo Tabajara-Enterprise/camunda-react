@@ -19,6 +19,7 @@ interface ProcessInstance {
   key: string;
   name: string;
   versionTag: string;
+  showId: string;
 }
 
 export const Solicitations: React.FC = () => {
@@ -30,10 +31,10 @@ export const Solicitations: React.FC = () => {
     api.get<ProcessInstance[]>('/v1/processes_definitions').then(response => {
       const processes = response.data.map(process => {
         const arrayId = process.id.split('-');
-        const id = arrayId[arrayId.length - 1];
+        const showId = arrayId[arrayId.length - 1];
         return {
           ...process,
-          id,
+          showId,
         };
       });
       setProcessesInstance(processes);
@@ -72,7 +73,7 @@ export const Solicitations: React.FC = () => {
                   <small>Versão {process.versionTag}</small>
                 </div>
                 <div>
-                  <span>{process.id}</span>
+                  <span>{process.showId}</span>
                   <h3>{process.name}</h3>
                 </div>
                 <Link to={`/solicitations/start/${process.id}`}>Iniciar</Link>
