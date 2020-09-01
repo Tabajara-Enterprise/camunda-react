@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { FiPlay } from 'react-icons/fi';
 import api from '../../services/api';
 import { BPMNDiagram } from '../../components/BPMNDiagram';
 
 import { Container, Content } from './styles';
+import { DynamicForm } from '../../components/DynamicForm';
+import { Button } from '../../components/Button';
+
+interface FormField {
+  id: string;
+  label: string;
+  properties: any;
+  value: any;
+}
 
 interface ProcessDefinition {
   id: string;
   key: string;
   name: string;
   versionTag: string;
+  startFormData: {
+    formKey: string;
+    formFields: FormField[];
+  };
 }
 
 export const StartSolicitation: React.FC = () => {
@@ -29,10 +41,18 @@ export const StartSolicitation: React.FC = () => {
       .then(response => setXml(response.data));
   }, [id]);
 
-  const handleStartProcess = async (key: string): Promise<void> => {
-    await api.post(`/v1/processes_instances/${key}`, {});
+  const handleStartProcess = async (variables: any = {}): Promise<void> => {
+    await api.post(
+      `/v1/processes_instances/${processDefinition?.key}`,
+      variables,
+    );
     history.push('/solicitations');
   };
+
+  const onSubmitForm = (data: any): void => {
+    handleStartProcess(data);
+  };
+
   if (!processDefinition) {
     return (
       <Container>
@@ -45,16 +65,25 @@ export const StartSolicitation: React.FC = () => {
       <Container>
         <h1>{processDefinition.name}</h1>
         <Content>
+          <h3>Diagrama</h3>
           {xml && <BPMNDiagram xml={xml} />}
-          <br />
-          <button
-            type="button"
-            onClick={() => handleStartProcess(processDefinition.key)}
-          >
-            <FiPlay size={30} />
-            Iniciar
-          </button>
         </Content>
+        {!!processDefinition.startFormData.formFields.length && (
+          <Content>
+            <h3>{processDefinition.startFormData.formKey}</h3>
+            <DynamicForm
+              formFields={processDefinition.startFormData.formFields}
+              onSubmit={onSubmitForm}
+            />
+          </Content>
+        )}
+        {!processDefinition.startFormData.formFields.length && (
+          <Content>
+            <Button type="button" onClick={handleStartProcess}>
+              Executar Tarefa
+            </Button>
+          </Content>
+        )}
       </Container>
     </>
   );
