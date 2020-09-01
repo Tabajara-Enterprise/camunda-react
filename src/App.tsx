@@ -6,6 +6,7 @@ import AppProvider from './hooks';
 
 import GlobalStyle from './styles/global';
 import { Header } from './components/Header';
+import { ReactComponent as ReactLogo } from './assets/cloud.svg';
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
       <AppProvider>
         <Header />
         <Routes />
+        <ReactLogo />
       </AppProvider>
     </BrowserRouter>
   );

@@ -18,4 +18,11 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+  svg#clouds {
+    position: fixed;
+    bottom: -160px;
+    left: -230px;
+    z-index: -10;
+    width: 1920px;
+  }
 `;
