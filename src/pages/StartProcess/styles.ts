@@ -2,9 +2,7 @@ import styled from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.div`
-  max-width: 1100px;
-  margin: 30px auto;
-  color: #353535;
+  margin: 0 30px;
   h1 {
     margin-bottom: 20px;
   }

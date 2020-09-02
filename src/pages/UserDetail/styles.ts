@@ -2,8 +2,7 @@ import styled from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.div`
-  max-width: 1100px;
-  margin: 30px auto;
+  margin: 0 30px;
 `;
 
 export const HeaderContent = styled.div`
