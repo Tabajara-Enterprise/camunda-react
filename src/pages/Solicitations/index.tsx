@@ -14,7 +14,7 @@ import { AuthorizedElement } from '../../utils/authorization';
 import { DeployProcess } from '../../components/Camunda/DeployProcess';
 import api from '../../services/api';
 
-interface ProcessInstance {
+interface ProcessDefinition {
   id: string;
   key: string;
   name: string;
@@ -24,11 +24,12 @@ interface ProcessInstance {
 
 export const Solicitations: React.FC = () => {
   const [tabActive, setTabActive] = useState<number>(1);
-  const [processesInstance, setProcessesInstance] = useState<
-    ProcessInstance[]
+  const [processesDefinition, setProcessesDefinition] = useState<
+    ProcessDefinition[]
   >();
+  const [processesInstance, setProcessesInstance] = useState([]);
   useEffect(() => {
-    api.get<ProcessInstance[]>('/v1/processes_definitions').then(response => {
+    api.get<ProcessDefinition[]>('/v1/processes_definitions').then(response => {
       const processes = response.data.map(process => {
         const arrayId = process.id.split('-');
         const showId = arrayId[arrayId.length - 1];
@@ -37,8 +38,11 @@ export const Solicitations: React.FC = () => {
           showId,
         };
       });
-      setProcessesInstance(processes);
+      setProcessesDefinition(processes);
     });
+    api
+      .get('/v1/processes_instances')
+      .then(response => setProcessesInstance(response.data));
   }, []);
   return (
     <>
@@ -66,7 +70,7 @@ export const Solicitations: React.FC = () => {
         </TabGroup>
         {tabActive === 1 && (
           <SolicitationsList>
-            {processesInstance?.map(process => (
+            {processesDefinition?.map(process => (
               <li key={process.id}>
                 <div>
                   <FiStar />
@@ -94,13 +98,15 @@ export const Solicitations: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>12/03</td>
-                  <td>12/04</td>
-                  <td>Reserva de sala</td>
-                  <td>5%</td>
-                  <td />
-                </tr>
+                {processesInstance?.map(process => (
+                  <tr>
+                    <td>12/03</td>
+                    <td>12/04</td>
+                    <td>Reserva de sala</td>
+                    <td>5%</td>
+                    <td />
+                  </tr>
+                ))}
               </tbody>
             </SolicitationTableList>
           </Content>
