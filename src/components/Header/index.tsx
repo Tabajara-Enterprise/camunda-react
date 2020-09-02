@@ -3,19 +3,21 @@ import { NavLink } from 'react-router-dom';
 import { useKeycloak } from '@react-keycloak/web';
 
 import { AuthorizedElement } from '../../utils/authorization';
-import { Container, Content, Navigation, LogoutContainer } from './styles';
+import { Container, Content, Navigation, Profile } from './styles';
+import logo from '../../assets/logo.svg';
 
 export const Header: React.FC = () => {
   const [keycloak] = useKeycloak();
-  function logout(): void {
+  function handleSingOut(): void {
     keycloak.logout();
   }
   return (
     <Container>
       <Content>
         <nav>
+          <img src={logo} alt="Logo Prozess" />
           <Navigation>
-            <NavLink to="/">HOME</NavLink>
+            <NavLink to="/dashboard">HOME</NavLink>
             <AuthorizedElement roles={['ADMINISTRATOR']}>
               <NavLink to="/users">USUÁRIOS</NavLink>
             </AuthorizedElement>
@@ -23,11 +25,14 @@ export const Header: React.FC = () => {
             <NavLink to="/tasks">TAREFAS</NavLink>
           </Navigation>
         </nav>
-        <LogoutContainer>
-          <button type="button" onClick={logout}>
-            logout
-          </button>
-        </LogoutContainer>
+        <aside>
+          <Profile>
+            <strong>Usuário logado</strong>
+            <button type="button" onClick={handleSingOut}>
+              sair do sistema
+            </button>
+          </Profile>
+        </aside>
       </Content>
     </Container>
   );

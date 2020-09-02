@@ -1,56 +1,73 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 70px;
-  width: 100%;
-  background: #2c3e50;
+  background: #fff;
+  padding: 0 30px;
+  border-bottom: 1px solid #ddd;
   margin-bottom: 35px;
 `;
 
-export const Content = styled.nav`
-  height: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
+export const Content = styled.div`
+  height: 64px;
+  /* margin: 0 auto; */
   display: flex;
   align-items: center;
+  justify-content: space-between;
   nav {
+    display: flex;
+    align-items: center;
+    a {
+      text-decoration: none;
+    }
+    img {
+      width: 135px;
+      height: 26px;
+      margin-right: 30px;
+    }
+  }
+  aside {
     display: flex;
     align-items: center;
   }
 `;
 
 export const Navigation = styled.div`
-  /* padding-left: 30px; */
+  padding-left: 30px;
   height: 32px;
-  /* border-left: 2px solid #999; */
+  border-left: 1px solid #ddd;
   display: flex;
   align-items: center;
   a {
-    text-decoration: none;
     margin-right: 20px;
     font-size: 15px;
     font-weight: bold;
     color: #999;
     transition: color 0.2s;
     &:hover {
-      color: #ffff;
+      color: #3498db;
+    }
+    &.active {
+      color: #444;
     }
   }
 `;
 
-export const LogoutContainer = styled.div`
-  margin-left: auto;
+export const Profile = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  strong {
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 5px;
+  }
   button {
-    background: transparent;
-    border: 1px solid #999;
-    padding: 5px 20px;
-    color: #999;
-    border-radius: 5px;
-    text-transform: uppercase;
-    transition: all 0.2s;
+    border: 0;
+    background: none;
+    color: #e74c3c;
+    transition: color 0.2s;
     &:hover {
-      background: #ffff;
-      color: #353535;
+      color: #c0392b;
     }
   }
 `;
