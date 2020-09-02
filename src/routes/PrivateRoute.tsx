@@ -36,7 +36,9 @@ const PrivateRoute: React.FC<RouteProps> = ({
         return isAutherized(roles) ? (
           <Component />
         ) : (
-          <Redirect to={{ pathname: '/', state: { from: location } }} />
+          <Redirect
+            to={{ pathname: '/dashboard', state: { from: location } }}
+          />
         );
       }}
     />

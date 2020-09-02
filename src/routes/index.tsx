@@ -1,7 +1,7 @@
 import React from 'react';
 import { useKeycloak } from '@react-keycloak/web';
 
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { Dashboard } from '../pages/Dashboard';
 import { Users } from '../pages/Users';
@@ -39,7 +39,10 @@ export const Routes: React.FC = () => {
         component={UserEdit}
       />
       <PrivateRoute roles={['ADMINISTRATOR']} path="/users" component={Users} />
-      <Route exact path="/" component={Dashboard} />
+      <Route to="/dashboard" component={Dashboard} />
+      <Route exact path="/">
+        <Redirect to="/dashboard" />
+      </Route>
     </Switch>
   );
 };
