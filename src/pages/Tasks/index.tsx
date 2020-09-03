@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { FiEye, FiLink, FiMenu } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
@@ -12,9 +12,22 @@ import {
   MenuActionItem,
 } from './styles';
 import Dropdown from '../../components/Dropdown';
+import api from '../../services/api';
+
+interface Task {
+  id: string;
+  name: string;
+  processInstanceId: string;
+  formKey: any;
+}
 
 export const Tasks: React.FC = () => {
   const [tabActive, setTabActive] = useState<number>(1);
+  const [tasks, setTasks] = useState<Task[]>();
+
+  useEffect(() => {
+    api.get<Task[]>('/v1/tasks').then(response => setTasks(response.data));
+  }, []);
   return (
     <>
       <Container>
@@ -51,72 +64,30 @@ export const Tasks: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              <TaskItem>
-                <td />
-                <td>12/04/20</td>
-                <td>Reserva de sala</td>
-                <td>Informar quantidade de alunos</td>
-                <td>
-                  <Dropdown icon={FiMenu}>
-                    <MenuActionItem>
-                      <Link to="!">
-                        <FiEye />
-                        <span>Detalhes</span>
-                      </Link>
-                    </MenuActionItem>
-                    <MenuActionItem>
-                      <Link to="!">
-                        <FiLink />
-                        <span>Assumir</span>
-                      </Link>
-                    </MenuActionItem>
-                  </Dropdown>
-                </td>
-              </TaskItem>
-              <TaskItem>
-                <td />
-                <td>12/04/20</td>
-                <td>Reserva de sala</td>
-                <td>Informar quantidade de alunos</td>
-                <td>
-                  <Dropdown icon={FiMenu}>
-                    <MenuActionItem>
-                      <Link to="!">
-                        <FiEye />
-                        <span>Detalhes</span>
-                      </Link>
-                    </MenuActionItem>
-                    <MenuActionItem>
-                      <Link to="!">
-                        <FiLink />
-                        <span>Assumir</span>
-                      </Link>
-                    </MenuActionItem>
-                  </Dropdown>
-                </td>
-              </TaskItem>
-              <TaskItem>
-                <td />
-                <td>12/04/20</td>
-                <td>Reserva de sala</td>
-                <td>Informar quantidade de alunos</td>
-                <td>
-                  <Dropdown icon={FiMenu}>
-                    <MenuActionItem>
-                      <Link to="!">
-                        <FiEye />
-                        <span>Detalhes</span>
-                      </Link>
-                    </MenuActionItem>
-                    <MenuActionItem>
-                      <Link to="!">
-                        <FiLink />
-                        <span>Assumir</span>
-                      </Link>
-                    </MenuActionItem>
-                  </Dropdown>
-                </td>
-              </TaskItem>
+              {tasks?.map(task => (
+                <TaskItem key={task.id}>
+                  <td />
+                  <td>-</td>
+                  <td>-</td>
+                  <td>{task.name}</td>
+                  <td>
+                    <Dropdown icon={FiMenu}>
+                      <MenuActionItem>
+                        <Link to="!">
+                          <FiEye />
+                          <span>Detalhes</span>
+                        </Link>
+                      </MenuActionItem>
+                      <MenuActionItem>
+                        <Link to="!">
+                          <FiLink />
+                          <span>Assumir</span>
+                        </Link>
+                      </MenuActionItem>
+                    </Dropdown>
+                  </td>
+                </TaskItem>
+              ))}
             </tbody>
           </TaskList>
         </Content>
