@@ -28,6 +28,10 @@ export const Tasks: React.FC = () => {
   useEffect(() => {
     api.get<Task[]>('/v1/tasks').then(response => setTasks(response.data));
   }, []);
+
+  async function handleAsumeTask(taskId: string): Promise<void> {
+    await api.post(`/v1/tasks/${taskId}/claim`);
+  }
   return (
     <>
       <Container>
@@ -79,10 +83,13 @@ export const Tasks: React.FC = () => {
                         </Link>
                       </MenuActionItem>
                       <MenuActionItem>
-                        <Link to="!">
+                        <button
+                          type="button"
+                          onClick={() => handleAsumeTask(task.id)}
+                        >
                           <FiLink />
                           <span>Assumir</span>
-                        </Link>
+                        </button>
                       </MenuActionItem>
                     </Dropdown>
                   </td>
