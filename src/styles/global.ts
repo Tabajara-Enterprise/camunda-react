@@ -8,12 +8,13 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    background: #f5f5f5;
-    -webkit-font-smoothing: antialiased
+    background: #f7faff;
+    color: #6f7380;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   body, input, button {
     font: 16px "Poppins", sans-serif;
-    color: #353535;
   }
   button {
     cursor: pointer;

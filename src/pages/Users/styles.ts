@@ -13,7 +13,7 @@ export const HeaderContent = styled.div`
     border: 0;
     border-radius: 5px;
     color: #fff;
-    background: #3498db;
+    background: #557cf2;
     height: 50px;
     width: 180px;
     text-transform: uppercase;

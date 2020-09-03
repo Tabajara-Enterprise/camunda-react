@@ -35,12 +35,12 @@ export const Select: React.FC<Props> = ({ name, label, ...rest }) => {
       ...theme,
       colors: {
         ...theme.colors,
-        primary: '#3498db',
+        primary: '#557cf2',
         neutral0: '#fff',
-        primary25: '#3498db',
+        primary25: '#557cf2',
         primary50: '#999591',
         neutral80: '#353535',
-        neutral30: '#3498db',
+        neutral30: '#557cf2',
       },
     };
   };

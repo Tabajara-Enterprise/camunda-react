@@ -44,7 +44,7 @@ export const Navigation = styled.div`
     color: #999;
     transition: color 0.2s;
     &:hover {
-      color: #3498db;
+      color: #557cf2;
     }
     &.active {
       color: #444;
