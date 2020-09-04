@@ -29,6 +29,8 @@ export const Content = styled.div`
   background: #fff;
   padding: 20px;
   border-radius: 5px;
+  box-shadow: 0 0 1px 0 rgba(59, 89, 178, 0.08),
+    0 4px 14px rgba(59, 89, 178, 0.06);
 `;
 
 export const UserList = styled.table`

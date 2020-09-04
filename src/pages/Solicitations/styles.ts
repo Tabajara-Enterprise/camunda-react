@@ -12,6 +12,8 @@ export const Content = styled.div`
   border-radius: 5px;
 
   width: 100%;
+  box-shadow: 0 0 1px 0 rgba(59, 89, 178, 0.08),
+    0 4px 14px rgba(59, 89, 178, 0.06);
 `;
 
 export const TabGroup = styled.ul`
@@ -51,6 +53,8 @@ export const SolicitationsList = styled.ul`
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 0 1px 0 rgba(59, 89, 178, 0.08),
+      0 4px 14px rgba(59, 89, 178, 0.06);
     > div {
       display: flex;
       align-items: center;
