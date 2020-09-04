@@ -6,6 +6,7 @@ import { BPMNDiagram } from '../../components/BPMNDiagram';
 import { Container, Content } from './styles';
 import { DynamicForm } from '../../components/DynamicForm';
 import { Button } from '../../components/Button';
+import { useToast } from '../../hooks/toast';
 
 interface FormField {
   id: string;
@@ -32,6 +33,7 @@ export const StartSolicitation: React.FC = () => {
   const [xml, setXml] = useState();
   const { id } = useParams();
   const history = useHistory();
+  const { addToast } = useToast();
   useEffect(() => {
     api
       .get<ProcessDefinition>(`/v1/processes_definitions/${id}`)
@@ -47,6 +49,12 @@ export const StartSolicitation: React.FC = () => {
       variables,
     );
     history.push('/solicitations');
+    addToast({
+      type: 'success',
+      title: 'Solicitação iniciada 🎉🎉🎉',
+      description:
+        'Sua solicitação foi iniciada, agora você pode acompanhá-la na aba "em andamento"',
+    });
   };
 
   const onSubmitForm = (data: any): void => {
