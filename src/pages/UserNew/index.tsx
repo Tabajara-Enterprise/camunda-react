@@ -13,6 +13,7 @@ import { Button } from '../../components/Button';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import { Container, Content } from './styles';
+import { useToast } from '../../hooks/toast';
 
 interface Role {
   name: string;
@@ -35,6 +36,7 @@ export const UserNew: React.FC = () => {
   const [roles, setRoles] = useState<RoleOptions[]>();
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
+  const { addToast } = useToast();
 
   useEffect(() => {
     api.get<Role[]>('/v1/roles').then(response => {
@@ -65,15 +67,28 @@ export const UserNew: React.FC = () => {
           password: '123456',
         });
         history.push('/users');
+        addToast({
+          type: 'success',
+          title: 'Cadastro realizado 🎉🎉🎉',
+          description:
+            'A senha padrão é de 1 a 6, mas o usuário deve ser ativado',
+        });
       } catch (err) {
+        setIsLoading(false);
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
+          return;
         }
-        setIsLoading(false);
+        addToast({
+          type: 'error',
+          title: 'Erro no cadastro 🤬🤬',
+          description:
+            'Algo de errado não esta certo, tente novamente mais tarde',
+        });
       }
     },
-    [history],
+    [history, addToast],
   );
 
   return (
