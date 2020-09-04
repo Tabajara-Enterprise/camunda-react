@@ -13,6 +13,7 @@ import { Button } from '../../components/Button';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import { Container, Content } from './styles';
+import { useToast } from '../../hooks/toast';
 
 interface Role {
   name: string;
@@ -38,6 +39,7 @@ export const UserEdit: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
   const { id } = useParams();
+  const { addToast } = useToast();
 
   useEffect(() => {
     api.get<Role[]>('/v1/roles').then(response => {
@@ -77,12 +79,24 @@ export const UserEdit: React.FC = () => {
           id,
         });
         history.push('/users');
+        addToast({
+          type: 'success',
+          title: 'Cadastro atualizado 🎉🎉🎉',
+          description: 'Tudo certo, confira os dados atualizados',
+        });
       } catch (err) {
+        setIsLoading(false);
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
+          return;
         }
-        setIsLoading(false);
+        addToast({
+          type: 'error',
+          title: 'Erro no cadastro 🤬🤬',
+          description:
+            'Algo de errado não esta certo, tente novamente mais tarde',
+        });
       }
     },
     [history, id],
