@@ -99,7 +99,7 @@ export const UserEdit: React.FC = () => {
         });
       }
     },
-    [history, id],
+    [history, id, addToast],
   );
 
   return (

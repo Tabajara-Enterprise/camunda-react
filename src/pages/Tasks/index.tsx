@@ -1,17 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
-import { FiEye, FiLink, FiMenu } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import {
-  Container,
-  Content,
-  TabGroup,
-  TabItem,
-  TaskList,
-  TaskItem,
-  MenuActionItem,
-} from './styles';
-import Dropdown from '../../components/Dropdown';
+import { Container, Content, TabGroup, TabItem } from './styles';
+import { TaskList } from '../../components/TaskList';
 import api from '../../services/api';
 
 interface Task {
@@ -19,11 +10,12 @@ interface Task {
   name: string;
   processInstanceId: string;
   formKey: any;
+  assignee: string;
 }
 
 export const Tasks: React.FC = () => {
   const [tabActive, setTabActive] = useState<number>(1);
-  const [tasks, setTasks] = useState<Task[]>();
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     api.get<Task[]>('/v1/tasks').then(response => setTasks(response.data));
@@ -32,6 +24,13 @@ export const Tasks: React.FC = () => {
   async function handleAsumeTask(taskId: string): Promise<void> {
     await api.post(`/v1/tasks/${taskId}/claim`);
   }
+
+  const notAssignee = useMemo(() => {
+    return tasks.filter(task => !task.assignee);
+  }, [tasks]);
+  const meAssignee = useMemo(() => {
+    return tasks.filter(task => task.assignee === 'user');
+  }, [tasks]);
   return (
     <>
       <Container>
@@ -57,46 +56,9 @@ export const Tasks: React.FC = () => {
               Tarefas concluídas
             </TabItem>
           </TabGroup>
-          <TaskList>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Prazo</th>
-                <th>Solicitação</th>
-                <th>Tarefa</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tasks?.map(task => (
-                <TaskItem key={task.id}>
-                  <td />
-                  <td>-</td>
-                  <td>-</td>
-                  <td>{task.name}</td>
-                  <td>
-                    <Dropdown icon={FiMenu}>
-                      <MenuActionItem>
-                        <Link to="!">
-                          <FiEye />
-                          <span>Detalhes</span>
-                        </Link>
-                      </MenuActionItem>
-                      <MenuActionItem>
-                        <button
-                          type="button"
-                          onClick={() => handleAsumeTask(task.id)}
-                        >
-                          <FiLink />
-                          <span>Assumir</span>
-                        </button>
-                      </MenuActionItem>
-                    </Dropdown>
-                  </td>
-                </TaskItem>
-              ))}
-            </tbody>
-          </TaskList>
+          {tabActive === 1 && <TaskList tasks={notAssignee} />}
+          {tabActive === 2 && <TaskList tasks={meAssignee} />}
+          {tabActive === 3 && <TaskList tasks={notAssignee} />}
         </Content>
       </Container>
     </>
