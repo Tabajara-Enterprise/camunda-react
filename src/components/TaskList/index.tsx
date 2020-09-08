@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { FiMenu, FiEye } from 'react-icons/fi';
+import { FiMenu, FiEye, FiLink } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { Container, TaskItem, MenuActionItem } from './styles';
 import Dropdown from '../Dropdown';
+import api from '../../services/api';
 
 interface Task {
   id: string;
@@ -18,6 +19,9 @@ interface TaskListProps {
 }
 
 export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
+  async function handleAsumeTask(taskId: string): Promise<void> {
+    await api.post(`/v1/tasks/${taskId}/claim`);
+  }
   return (
     <Container>
       <thead>
@@ -39,20 +43,22 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
             <td>
               <Dropdown icon={FiMenu}>
                 <MenuActionItem>
-                  <Link to="!">
+                  <Link to={`/tasks/${task.id}`}>
                     <FiEye />
                     <span>Detalhes</span>
                   </Link>
                 </MenuActionItem>
-                <MenuActionItem>
-                  {/* <button
-                          type="button"
-                          onClick={() => handleAsumeTask(task.id)}
-                        >
-                          <FiLink />
-                          <span>Assumir</span>
-                        </button> */}
-                </MenuActionItem>
+                {!task.assignee && (
+                  <MenuActionItem>
+                    <button
+                      type="button"
+                      onClick={() => handleAsumeTask(task.id)}
+                    >
+                      <FiLink />
+                      <span>Assumir</span>
+                    </button>
+                  </MenuActionItem>
+                )}
               </Dropdown>
             </td>
           </TaskItem>
