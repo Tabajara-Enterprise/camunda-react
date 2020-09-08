@@ -71,7 +71,7 @@ export const Select: React.FC<Props> = ({ name, label, ...rest }) => {
   }, [fieldName, registerField, rest.isMulti]);
 
   return (
-    <>
+    <div style={{ marginBottom: '15px' }}>
       <label style={{ fontWeight: 'bold' }} htmlFor={name}>
         {label}
       </label>
@@ -85,6 +85,6 @@ export const Select: React.FC<Props> = ({ name, label, ...rest }) => {
         placeholder="Selecione..."
         {...rest}
       />
-    </>
+    </div>
   );
 };
