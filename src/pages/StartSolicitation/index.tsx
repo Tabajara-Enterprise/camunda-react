@@ -4,16 +4,9 @@ import api from '../../services/api';
 import { BPMNDiagram } from '../../components/BPMNDiagram';
 
 import { Container, Content } from './styles';
-import { DynamicForm } from '../../components/DynamicForm';
+import { DynamicForm, FormField } from '../../components/DynamicForm';
 import { Button } from '../../components/Button';
 import { useToast } from '../../hooks/toast';
-
-interface FormField {
-  id: string;
-  label: string;
-  properties: any;
-  value: any;
-}
 
 interface ProcessDefinition {
   id: string;
