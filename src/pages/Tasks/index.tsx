@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
-import { Link } from 'react-router-dom';
 import { Container, Content, TabGroup, TabItem } from './styles';
 import { TaskList } from '../../components/TaskList';
 import api from '../../services/api';
@@ -20,10 +19,6 @@ export const Tasks: React.FC = () => {
   useEffect(() => {
     api.get<Task[]>('/v1/tasks').then(response => setTasks(response.data));
   }, []);
-
-  async function handleAsumeTask(taskId: string): Promise<void> {
-    await api.post(`/v1/tasks/${taskId}/claim`);
-  }
 
   const notAssignee = useMemo(() => {
     return tasks.filter(task => !task.assignee);
