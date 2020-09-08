@@ -1,14 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { Input } from '../Input';
+import { Select } from '../Select';
 import { Button } from '../Button';
 
-interface FormField {
+export interface FormField {
   id: string;
   label: string;
   properties: any;
   value: any;
+  type: string;
 }
 
 interface DynamiFormProps {
@@ -24,17 +26,34 @@ export const DynamicForm: React.FC<DynamiFormProps> = ({
     onSubmit(data);
   };
 
+  const initialValue = useMemo(() => {
+    return formFields
+      .map(formField => ({
+        key: formField.id,
+        value: formField.value.value,
+      }))
+      .reduce((obj: any, item) => ((obj[item.key] = item.value), obj), {});
+  }, [formFields]);
+
   const formRef = useRef<FormHandles>(null);
+
   return (
-    <Form ref={formRef} onSubmit={testHandler}>
-      {formFields.map(({ id, label }) => (
-        <Input
-          key={id}
-          name={id}
-          placeholder={label}
-          label={label}
-          type="text"
-        />
+    <Form ref={formRef} onSubmit={testHandler} initialData={initialValue}>
+      {formFields.map(({ id, label, type }) => (
+        <>
+          {type === 'string' && (
+            <Input
+              key={id}
+              name={id}
+              placeholder={label}
+              label={label}
+              type="text"
+            />
+          )}
+          {type === 'enum' && (
+            <Select key={id} name={id} label={label} options={[]} />
+          )}
+        </>
       ))}
       <Button type="submit">Executar tarefa</Button>
     </Form>
