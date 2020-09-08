@@ -12,6 +12,7 @@ import { Tasks } from '../pages/Tasks';
 import PrivateRoute from './PrivateRoute';
 import { UserDetail } from '../pages/UserDetail';
 import { UserEdit } from '../pages/UserEdit';
+import { TaskDetail } from '../pages/TaskDetail';
 
 export const Routes: React.FC = () => {
   const [, initialized] = useKeycloak();
@@ -20,6 +21,7 @@ export const Routes: React.FC = () => {
   }
   return (
     <Switch>
+      <Route path="/tasks/:id" component={TaskDetail} />
       <Route path="/tasks" component={Tasks} />
       <Route path="/solicitations/start/:id" component={StartSolicitation} />
       <Route path="/solicitations" component={Solicitations} />
