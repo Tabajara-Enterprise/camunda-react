@@ -7,6 +7,7 @@ import { Dashboard } from '../pages/Dashboard';
 import { Users } from '../pages/Users';
 import { UserNew } from '../pages/UserNew';
 import { Solicitations } from '../pages/Solicitations';
+import { SolicitationDetail } from '../pages/SolicitationDetail';
 import { StartSolicitation } from '../pages/StartSolicitation';
 import { Tasks } from '../pages/Tasks';
 import PrivateRoute from './PrivateRoute';
@@ -23,6 +24,7 @@ export const Routes: React.FC = () => {
     <Switch>
       <Route path="/tasks/:id" component={TaskDetail} />
       <Route path="/tasks" component={Tasks} />
+      <Route path="/solicitations/:id" component={SolicitationDetail} />
       <Route path="/solicitations/start/:id" component={StartSolicitation} />
       <Route path="/solicitations" component={Solicitations} />
       <PrivateRoute
