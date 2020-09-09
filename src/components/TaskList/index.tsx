@@ -34,6 +34,13 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
         </tr>
       </thead>
       <tbody>
+        {!tasks.length && (
+          <TaskItem>
+            <td style={{ textAlign: 'center' }} colSpan={5}>
+              Não há registros
+            </td>
+          </TaskItem>
+        )}
         {tasks.map(task => (
           <TaskItem key={task.id}>
             <td />

@@ -23,6 +23,7 @@ export const MenuActionItem = styled.li`
   transition: background 0.2s;
   a {
     display: flex;
+    align-items: center;
     text-decoration: none;
     color: #353535;
     transition: color 0.2s;

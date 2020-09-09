@@ -30,27 +30,18 @@ export const Tasks: React.FC = () => {
     <>
       <Container>
         <h1>Lista de tarefas</h1>
+        <TabGroup>
+          <TabItem active={!!(tabActive === 1)} onClick={() => setTabActive(1)}>
+            Tarefas disponíveis
+          </TabItem>
+          <TabItem onClick={() => setTabActive(2)} active={!!(tabActive === 2)}>
+            Tarefas em andamento
+          </TabItem>
+          <TabItem onClick={() => setTabActive(3)} active={!!(tabActive === 3)}>
+            Tarefas concluídas
+          </TabItem>
+        </TabGroup>
         <Content>
-          <TabGroup>
-            <TabItem
-              active={!!(tabActive === 1)}
-              onClick={() => setTabActive(1)}
-            >
-              Tarefas disponíveis
-            </TabItem>
-            <TabItem
-              onClick={() => setTabActive(2)}
-              active={!!(tabActive === 2)}
-            >
-              Tarefas em andamento
-            </TabItem>
-            <TabItem
-              onClick={() => setTabActive(3)}
-              active={!!(tabActive === 3)}
-            >
-              Tarefas concluídas
-            </TabItem>
-          </TabGroup>
           {tabActive === 1 && <TaskList tasks={notAssignee} />}
           {tabActive === 2 && <TaskList tasks={meAssignee} />}
           {tabActive === 3 && <TaskList tasks={notAssignee} />}
