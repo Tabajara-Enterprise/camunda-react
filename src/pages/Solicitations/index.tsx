@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FiStar } from 'react-icons/fi';
+import { FiStar, FiEye, FiMenu } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import {
@@ -9,10 +9,13 @@ import {
   TabGroup,
   TabItem,
   SolicitationTableList,
+  MenuActionItem,
 } from './styles';
 import { AuthorizedElement } from '../../utils/authorization';
 import { DeployProcess } from '../../components/Camunda/DeployProcess';
 import api from '../../services/api';
+import parseDate from '../../utils/parseDate';
+import Dropdown from '../../components/Dropdown';
 
 interface ProcessDefinition {
   id: string;
@@ -21,13 +24,21 @@ interface ProcessDefinition {
   versionTag: string;
   showId: string;
 }
+interface ProcessInstance {
+  id: string;
+  processDefinitionId: string;
+  description: string;
+  startedAt: string;
+}
 
 export const Solicitations: React.FC = () => {
   const [tabActive, setTabActive] = useState<number>(1);
   const [processesDefinition, setProcessesDefinition] = useState<
     ProcessDefinition[]
   >();
-  const [processesInstance, setProcessesInstance] = useState([]);
+  const [processesInstance, setProcessesInstance] = useState<ProcessInstance[]>(
+    [],
+  );
   useEffect(() => {
     api.get<ProcessDefinition[]>('/v1/processes_definitions').then(response => {
       const processes = response.data.map(process => {
@@ -40,9 +51,13 @@ export const Solicitations: React.FC = () => {
       });
       setProcessesDefinition(processes);
     });
-    api
-      .get('/v1/processes_instances')
-      .then(response => setProcessesInstance(response.data));
+    api.get<ProcessInstance[]>('/v1/processes_instances').then(response => {
+      const processes = response.data.map(process => ({
+        ...process,
+        startedAt: parseDate(process.startedAt),
+      }));
+      setProcessesInstance(processes);
+    });
   }, []);
   return (
     <>
@@ -99,12 +114,21 @@ export const Solicitations: React.FC = () => {
               </thead>
               <tbody>
                 {processesInstance?.map(process => (
-                  <tr>
-                    <td>12/03</td>
-                    <td>12/04</td>
-                    <td>Reserva de sala</td>
-                    <td>5%</td>
-                    <td />
+                  <tr key={process.id}>
+                    <td>{process.startedAt}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>
+                      <Dropdown icon={FiMenu}>
+                        <MenuActionItem>
+                          <Link to={`/solicitations/${process.id}`}>
+                            <FiEye />
+                            <span>Detalhes</span>
+                          </Link>
+                        </MenuActionItem>
+                      </Dropdown>
+                    </td>
                   </tr>
                 ))}
               </tbody>
