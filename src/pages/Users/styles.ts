@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const Container = styled.div`
   margin: 0 30px;
@@ -14,13 +15,17 @@ export const HeaderContent = styled.div`
     border-radius: 5px;
     color: #fff;
     background: #557cf2;
+    font-weight: 500;
     height: 50px;
     width: 180px;
-    text-transform: uppercase;
     text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s;
+    &:hover {
+      background: ${shade(0.2, '#557cf2')};
+    }
   }
 `;
 
@@ -56,12 +61,14 @@ export const MenuActionItem = styled.li`
   transition: background 0.2s;
   a {
     display: flex;
+    align-items: center;
     text-decoration: none;
     color: #353535;
     transition: color 0.2s;
   }
   button {
     display: flex;
+    align-items: center;
     border: 0;
     background: transparent;
     color: #353535;
