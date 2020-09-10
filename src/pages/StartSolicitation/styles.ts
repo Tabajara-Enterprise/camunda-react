@@ -2,8 +2,27 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   margin: 0 30px;
+`;
+export const HeaderContent = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
   h1 {
-    margin-bottom: 20px;
+    margin-right: 10px;
+  }
+  button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    svg {
+      color: #6f7380;
+    }
+    &:hover {
+      svg {
+        color: #557cf2;
+      }
+    }
   }
 `;
 

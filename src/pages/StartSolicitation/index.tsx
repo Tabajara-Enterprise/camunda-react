@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { FiEye } from 'react-icons/fi';
 import api from '../../services/api';
-import { BPMNDiagram } from '../../components/BPMNDiagram';
 
-import { Container, Content } from './styles';
+import { BPMNDiagram } from '../../components/BPMNDiagram';
 import { DynamicForm, FormField } from '../../components/DynamicForm';
 import { Button } from '../../components/Button';
 import { useToast } from '../../hooks/toast';
+import { useModal } from '../../hooks/modal';
+import Tooltip from '../../components/Tooltip';
+
+import { Container, HeaderContent, Content } from './styles';
 
 interface ProcessDefinition {
   id: string;
@@ -27,6 +31,7 @@ export const StartSolicitation: React.FC = () => {
   const { id } = useParams();
   const history = useHistory();
   const { addToast } = useToast();
+  const { openModal } = useModal();
   useEffect(() => {
     api
       .get<ProcessDefinition>(`/v1/processes_definitions/${id}`)
@@ -54,6 +59,13 @@ export const StartSolicitation: React.FC = () => {
     handleStartProcess(data);
   };
 
+  const handleOpenDiagram = useCallback(() => {
+    openModal({
+      title: 'Diagrama',
+      container: () => BPMNDiagram({ xml }),
+    });
+  }, [openModal, xml]);
+
   if (!processDefinition) {
     return (
       <Container>
@@ -64,14 +76,22 @@ export const StartSolicitation: React.FC = () => {
   return (
     <>
       <Container>
-        <h1>{processDefinition.name}</h1>
-        <Content>
-          <h3>Diagrama</h3>
-          {xml && <BPMNDiagram xml={xml} />}
-        </Content>
+        <HeaderContent>
+          <h1>{processDefinition.name}</h1>
+          <Tooltip title="Visualizar Diagrama">
+            <button type="button" onClick={handleOpenDiagram}>
+              <FiEye size={25} />
+            </button>
+          </Tooltip>
+        </HeaderContent>
+
         {!!processDefinition.startFormData.formFields.length && (
           <Content>
-            <h3>{processDefinition.startFormData.formKey}</h3>
+            <h3>
+              {processDefinition.startFormData.formKey
+                ? processDefinition.startFormData.formKey
+                : 'Formulário'}
+            </h3>
             <DynamicForm
               formFields={processDefinition.startFormData.formFields}
               onSubmit={onSubmitForm}
