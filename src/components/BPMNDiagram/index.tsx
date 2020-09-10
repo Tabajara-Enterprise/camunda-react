@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react';
 import BpmnJS from 'bpmn-js';
-
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -19,10 +18,15 @@ export const BPMNDiagram: React.FC<BPMNDiagramProps> = ({ xml }) => {
   useEffect(() => {
     async function openDiagram(): Promise<void> {
       try {
-        const bpm = new BpmnJS({ container: '#canvas' });
+        const bpm = new BpmnJS({
+          container: '#canvas',
+          width: 500,
+          height: 400,
+        });
         await bpm.importXML(xml);
         const canvas = bpm.get('canvas');
-        canvas.zoom('fit-viewport');
+        canvas.resized();
+        canvas.zoom('fit-viewport', 'auto');
       } catch (err) {
         console.log(err);
       }
