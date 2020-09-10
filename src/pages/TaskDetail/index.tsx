@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import { DynamicForm, FormField } from '../../components/DynamicForm';
 import { Container, Content } from './styles';
 import { BPMNDiagram } from '../../components/BPMNDiagram';
+import { useToast } from '../../hooks/toast';
 
 interface Task {
   id: string;
@@ -19,6 +20,8 @@ export const TaskDetail: React.FC = () => {
   const { id } = useParams();
   const [task, setTask] = useState<Task>();
   const [xml, setXml] = useState();
+  const history = useHistory();
+  const { addToast } = useToast();
   useEffect(() => {
     async function load(): Promise<void> {
       const { data: taskResponse } = await api.get<Task>(`/v1/tasks/${id}`);
@@ -31,8 +34,13 @@ export const TaskDetail: React.FC = () => {
     }
     load();
   }, [id]);
-  const onSubmitForm = (data: any): void => {
-    console.log(data);
+  const onSubmitForm = async (data: any): Promise<void> => {
+    await api.post(`/v1/tasks/${id}`, data);
+    history.push('/tasks');
+    addToast({
+      type: 'success',
+      title: 'Tarefa concluida 🎉🎉🎉',
+    });
   };
 
   return (

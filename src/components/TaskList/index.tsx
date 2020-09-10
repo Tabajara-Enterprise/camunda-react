@@ -49,12 +49,14 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
             <td>{task.name}</td>
             <td>
               <Dropdown icon={FiMenu}>
-                <MenuActionItem>
-                  <Link to={`/tasks/${task.id}`}>
-                    <FiEye />
-                    <span>Detalhes</span>
-                  </Link>
-                </MenuActionItem>
+                {task.assignee && (
+                  <MenuActionItem>
+                    <Link to={`/tasks/${task.id}`}>
+                      <FiEye />
+                      <span>Detalhes</span>
+                    </Link>
+                  </MenuActionItem>
+                )}
                 {!task.assignee && (
                   <MenuActionItem>
                     <button
