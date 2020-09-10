@@ -24,8 +24,8 @@ export const Routes: React.FC = () => {
     <Switch>
       <Route path="/tasks/:id" component={TaskDetail} />
       <Route path="/tasks" component={Tasks} />
-      <Route path="/solicitations/:id" component={SolicitationDetail} />
       <Route path="/solicitations/start/:id" component={StartSolicitation} />
+      <Route path="/solicitations/:id" component={SolicitationDetail} />
       <Route path="/solicitations" component={Solicitations} />
       <PrivateRoute
         roles={['ADMINISTRATOR']}
