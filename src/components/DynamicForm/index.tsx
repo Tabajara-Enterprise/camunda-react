@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useCallback } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { Input } from '../Input';
@@ -11,6 +11,7 @@ export interface FormField {
   properties: any;
   value: any;
   type: string;
+  options: any;
 }
 
 interface DynamiFormProps {
@@ -37,23 +38,29 @@ export const DynamicForm: React.FC<DynamiFormProps> = ({
 
   const formRef = useRef<FormHandles>(null);
 
+  const handleParseOptions = useCallback((options: any): any => {
+    const teste = Object.keys(options).map(key => ({
+      value: key,
+      label: options[key],
+    }));
+    return teste;
+  }, []);
+
   return (
     <Form ref={formRef} onSubmit={testHandler} initialData={initialValue}>
-      {formFields.map(({ id, label, type }) => (
-        <>
+      {formFields.map(({ id, label, type, options }) => (
+        <React.Fragment key={id}>
           {type === 'string' && (
-            <Input
-              key={id}
-              name={id}
-              placeholder={label}
-              label={label}
-              type="text"
-            />
+            <Input name={id} placeholder={label} label={label} type="text" />
           )}
           {type === 'enum' && (
-            <Select key={id} name={id} label={label} options={[]} />
+            <Select
+              name={id}
+              label={label}
+              options={handleParseOptions(options)}
+            />
           )}
-        </>
+        </React.Fragment>
       ))}
       <Button type="submit">Executar tarefa</Button>
     </Form>
