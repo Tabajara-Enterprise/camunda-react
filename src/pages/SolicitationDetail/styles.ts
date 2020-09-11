@@ -31,13 +31,36 @@ export const Content = styled.div`
   padding: 20px;
   box-shadow: 0 0 1px 0 rgba(59, 89, 178, 0.08),
     0 4px 14px rgba(59, 89, 178, 0.06);
+  h3 {
+    margin-bottom: 20px;
+    &::after {
+      content: '';
+      display: block;
+      width: 200px;
+      height: 2px;
+      background: #ff872c;
+    }
+  }
   ul {
     list-style: none;
+    margin-bottom: 10px;
     li {
       padding: 10px;
       strong {
         margin-right: 5px;
       }
+    }
+  }
+  table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    th {
+      background: #e8ecf2;
+      padding: 10px;
+    }
+    td {
+      padding: 10px;
     }
   }
 `;
