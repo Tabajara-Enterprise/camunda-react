@@ -39,11 +39,11 @@ export const DynamicForm: React.FC<DynamiFormProps> = ({
   const formRef = useRef<FormHandles>(null);
 
   const handleParseOptions = useCallback((options: any): any => {
-    const teste = Object.keys(options).map(key => ({
+    const arrayPrase = Object.keys(options).map(key => ({
       value: key,
       label: options[key],
     }));
-    return teste;
+    return arrayPrase;
   }, []);
 
   return (
