@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Container, HeaderContent, Content } from './styles';
 import api from '../../services/api';
+import parseDate from '../../utils/parseDate';
 
 interface Variable {
   value: any;
@@ -13,11 +14,14 @@ interface HistoryItem {
   id: string;
   assignee: string;
   name: string;
+  processInstanceId: string;
+  endedAt: string;
 }
 
 interface Solicitation {
   id: string;
   processDefinitionId: string;
+  name: string;
   description: string;
   startedAt: string;
   variables: any[];
@@ -43,7 +47,7 @@ export const SolicitationDetail: React.FC = () => {
       setSolicitation(process);
     });
     api.get<HistoryItem[]>('v1/tasks/history').then(response => {
-      const items = response.data.filter(item => item.id === id);
+      const items = response.data.filter(item => item.processInstanceId === id);
       setHistory(items);
     });
   }, [id]);
@@ -67,12 +71,12 @@ export const SolicitationDetail: React.FC = () => {
         <h3>Geral</h3>
         <ul>
           <li>
-            <strong>Prazo:</strong>
-            <span>30 dias</span>
+            <strong>Solicitação:</strong>
+            <span>{solicitation.name}</span>
           </li>
           <li>
             <strong>Data de início</strong>
-            <span>30/02/2020 às 19:00</span>
+            <span>{parseDate(solicitation.startedAt)}</span>
           </li>
         </ul>
         <h3>Detalhes</h3>
@@ -105,7 +109,7 @@ export const SolicitationDetail: React.FC = () => {
                 <td>#</td>
                 <td>{item.assignee}</td>
                 <td>{item.name}</td>
-                <td>há 32 minutos</td>
+                <td>{parseDate(item.endedAt)}</td>
               </tr>
             ))}
           </tbody>
