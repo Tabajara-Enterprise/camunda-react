@@ -26,6 +26,7 @@ interface ProcessDefinition {
 }
 interface ProcessInstance {
   id: string;
+  name: string;
   processDefinitionId: string;
   description: string;
   startedAt: string;
@@ -117,7 +118,7 @@ export const Solicitations: React.FC = () => {
                   <tr key={process.id}>
                     <td>{process.startedAt}</td>
                     <td>-</td>
-                    <td>-</td>
+                    <td>{process.name}</td>
                     <td>-</td>
                     <td>
                       <Dropdown icon={FiMenu}>
