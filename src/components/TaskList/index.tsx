@@ -16,11 +16,13 @@ interface Task {
 
 interface TaskListProps {
   tasks: Task[];
+  loadTasks: () => Promise<void>;
 }
 
-export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
+export const TaskList: React.FC<TaskListProps> = ({ tasks, loadTasks }) => {
   async function handleAsumeTask(taskId: string): Promise<void> {
     await api.post(`/v1/tasks/${taskId}/claim`);
+    await loadTasks();
   }
   return (
     <Container>

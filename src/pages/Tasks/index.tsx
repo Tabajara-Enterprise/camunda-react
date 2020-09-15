@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 import { Container, Content, TabGroup, TabItem } from './styles';
 import { TaskList } from '../../components/TaskList';
@@ -16,9 +16,14 @@ export const Tasks: React.FC = () => {
   const [tabActive, setTabActive] = useState<number>(1);
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  useEffect(() => {
-    api.get<Task[]>('/v1/tasks').then(response => setTasks(response.data));
+  const loadTasks = useCallback(async () => {
+    const response = await api.get<Task[]>('/v1/tasks');
+    setTasks(response.data);
   }, []);
+
+  useEffect(() => {
+    loadTasks();
+  }, [loadTasks]);
 
   const notAssignee = useMemo(() => {
     return tasks.filter(task => !task.assignee);
@@ -42,9 +47,15 @@ export const Tasks: React.FC = () => {
           </TabItem>
         </TabGroup>
         <Content>
-          {tabActive === 1 && <TaskList tasks={notAssignee} />}
-          {tabActive === 2 && <TaskList tasks={meAssignee} />}
-          {tabActive === 3 && <TaskList tasks={notAssignee} />}
+          {tabActive === 1 && (
+            <TaskList loadTasks={loadTasks} tasks={notAssignee} />
+          )}
+          {tabActive === 2 && (
+            <TaskList loadTasks={loadTasks} tasks={meAssignee} />
+          )}
+          {tabActive === 3 && (
+            <TaskList loadTasks={loadTasks} tasks={notAssignee} />
+          )}
         </Content>
       </Container>
     </>
