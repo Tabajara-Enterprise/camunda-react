@@ -28,9 +28,9 @@ export const TaskDetail: React.FC = () => {
       setTask(taskResponse);
 
       const { data: diagram } = await api.get(
-        `/v1/processes_definitions/${taskResponse.processInstanceId}/diagram`,
+        `/v1/processes_instances/${taskResponse.processInstanceId}/diagram`,
       );
-      setXml(diagram);
+      setXml(diagram[0].diagram);
     }
     load();
   }, [id]);

@@ -4,6 +4,7 @@ import { Form } from '@unform/web';
 import { Input } from '../Input';
 import { Select } from '../Select';
 import { Button } from '../Button';
+import { Datepicker } from '../Datepicker';
 
 export interface FormField {
   id: string;
@@ -60,6 +61,7 @@ export const DynamicForm: React.FC<DynamiFormProps> = ({
               options={handleParseOptions(options)}
             />
           )}
+          {type === 'date' && <Datepicker label={label} name={id} />}
         </React.Fragment>
       ))}
       <Button type="submit">Executar tarefa</Button>
