@@ -62,6 +62,9 @@ export const DynamicForm: React.FC<DynamiFormProps> = ({
             />
           )}
           {type === 'date' && <Datepicker label={label} name={id} />}
+          {type === 'long' && (
+            <Input type="number" placeholder={label} label={label} name={id} />
+          )}
         </React.Fragment>
       ))}
       <Button type="submit">Executar tarefa</Button>
